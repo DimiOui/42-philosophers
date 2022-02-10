@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 12:06:49 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/10 12:37:59 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/10 12:44:00 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,13 @@ int	main(int ac, char **av)
 	while (i < 4)
 	{
 		if (pthread_create(&philos[i], NULL, &routine, NULL) != 0)
-		{
-			printf("Failed to create thread.\n");
 			return (1);
-		}
 		printf("Thread %d has started\n", i);
+		i++;
+	}
+	i = 0;
+	while (i < 4)
+	{
 		if (pthread_join(philos[i], NULL) != 0)
 			return (2);
 		printf("Thread %d has finished execution\n", i);
