@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 12:07:12 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/11 15:06:46 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/11 16:07:07 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ typedef struct s_data {
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					nb_must_eat;
-	int					died;
+	int					dead;
+	long long			time_born;
+	long long			time_eat;
 	pthread_mutex_t		fork_mutex[MAX_PHILO];
 	pthread_mutex_t		eat_mutex;
 	t_philos			philos[MAX_PHILO];
