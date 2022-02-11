@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 13:56:01 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/11 15:27:29 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/11 15:38:59 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	parse_mutex(t_data *data)
 	{
 		if (pthread_mutex_init(&data->fork_mutex[i], NULL))
 			return (1);
+		printf("mutex fork initialized\n");
 	}
 	return (0);
 }
@@ -47,9 +48,13 @@ int	parse_mutex(t_data *data)
 int	parse_all(t_data *data, char **av)
 {
 	data->nb_philos = ft_atoi(av[1]);
+	printf("data nb philos : %d\n", data->nb_philos);
 	data->time_to_die = ft_atoi(av[2]);
+	printf("data ttdie : %d\n", data->time_to_die);
 	data->time_to_eat = ft_atoi(av[3]);
+	printf("data tteat : %d\n", data->time_to_eat);
 	data->time_to_sleep = ft_atoi(av[4]);
+	printf("data ttsleep: %d\n", data->time_to_sleep);
 	data->died = 0;
 	if (data->nb_philos < 2 || data->time_to_die < 0 || data->time_to_eat < 0
 		|| data->time_to_sleep < 0)
