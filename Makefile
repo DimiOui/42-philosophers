@@ -6,37 +6,42 @@
 #    By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/10 12:23:41 by dimioui           #+#    #+#              #
-#    Updated: 2022/02/10 12:36:34 by dimioui          ###   ########.fr        #
+#    Updated: 2022/02/11 15:19:09 by dimioui          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		=	$(addprefix srcs/, \
 							main.c \
+							error.c \
+							parsing.c \
+							utils.c \
 				)
 
 OBJS		= ${SRCS:.c=.o}
 
-NAME		= philosophers
+NAME		= philo
 
 RM			= @rm -f
 
 CC			= @cc
 
-CFLAGS		= -pthread -Wall -Wextra -Werror -Iincludes -c
+CFLAGS		= -Wall -Wextra -Werror -Iincludes -c -g
+
+INCLUDE		= -pthread
 
 .c.o:
 			${CC} ${CFLAGS} $< -o ${<:.c=.o}
 
-${NAME}:	${OBJS}
-			@ar rcsv ${NAME} ${OBJS} > /dev/null
+${NAME}:	$(OBJS)
+			$(CC) $(INCLUDE) $(FLAGS) -o $(NAME) $(OBJS)
 
-all:		${NAME}
+all:		$(NAME)
 
 clean:
-			${RM} ${OBJS} ${BONUS_OBJS}
+			$(RM) $(OBJS) $(BONUS_OBJS)
 
 fclean:		clean
-			${RM} ${NAME}
+			$(RM) $(NAME)
 
 re:			fclean all
 

@@ -1,16 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/10 12:07:12 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/10 12:36:26 by dimioui          ###   ########.fr       */
+/*   Created: 2022/02/11 13:46:18 by dimioui           #+#    #+#             */
+/*   Updated: 2022/02/11 15:07:02 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+#include "philo.h"
 
-#endif
+int	main(int ac, char **av)
+{
+	t_data	data;
+	int		parse_ret;
+
+	if (ac != 5 && ac != 6)
+		error (1);
+	if ((parse_ret = parse_all(&data, av)))
+		error (2);
+	return (0);
+}
