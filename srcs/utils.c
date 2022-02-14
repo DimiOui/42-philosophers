@@ -6,23 +6,11 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 14:07:01 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/11 14:07:55 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/14 15:50:44 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static int	ft_isnum(char c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
-
-static int	ft_isspace(char c)
-{
-	if (c == ' ' || (c >= 9 && c <= 13))
-		return (1);
-	return (0);
-}
+#include "philo.h"
 
 int	ft_atoi(const char *str)
 {
@@ -33,7 +21,7 @@ int	ft_atoi(const char *str)
 	i = 0;
 	result = 0;
 	sign = 1;
-	while (ft_isspace(str[i]))
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
@@ -43,10 +31,49 @@ int	ft_atoi(const char *str)
 		}
 		i++;
 	}
-	while (ft_isnum(str[i]))
+	while (str[i] >= '0' && str[i] <= '9')
 	{
 		result = (result * 10) + (str[i] - '0');
 		i++;
 	}
 	return (result * sign);
+}
+
+int	timestamp(void)
+{
+	struct timeval	t;
+
+	gettimeofday(&t, NULL);
+	return ((t.tv_sec * 1000) + t.tv_usec / 1000);
+}
+
+int	m_time(int past, int pres)
+{
+	return (pres - past);
+}
+
+void	s_sleep(int time, t_data *data)
+{
+	int	i;
+
+	i = timestamp();
+	while (!(data->dead))
+	{
+		if (m_time(i, timestamp()) >= time)
+			break;
+		usleep(150);
+	}
+}
+
+void	philo_does(t_data *data, int id, char *str)
+{
+	pthread_mutex_lock(&(data->action_mutex));
+	if (!(data->dead))
+	{
+		printf("%i\t ", timestamp() - data->time_birth);
+		printf("%i ", id + 1);
+		printf("%s\n", str);
+	}
+	pthread_mutex_unlock(&(data->action_mutex));
+	return ;
 }

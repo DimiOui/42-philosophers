@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 13:47:55 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/11 15:03:33 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/14 15:29:50 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,7 @@ void	error(int error)
 		printf("Wrong amount of args.\n");
 	else if (error == 2)
 		printf("Error while parsing.\n");
+	else if (error == 3)
+		printf("Error while creating threads.\n");
 	exit (1);
 }

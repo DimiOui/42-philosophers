@@ -6,7 +6,7 @@
 #    By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/10 12:23:41 by dimioui           #+#    #+#              #
-#    Updated: 2022/02/11 15:19:09 by dimioui          ###   ########.fr        #
+#    Updated: 2022/02/14 15:27:04 by dimioui          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ SRCS		=	$(addprefix srcs/, \
 							error.c \
 							parsing.c \
 							utils.c \
+							philo_actions.c \
 				)
 
 OBJS		= ${SRCS:.c=.o}

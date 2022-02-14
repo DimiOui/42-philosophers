@@ -6,13 +6,13 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 13:56:01 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/11 21:19:20 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/14 15:28:41 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	parse_philos(t_data *data)
+int	init_philos(t_data *data)
 {
 	int	i;
 
@@ -20,29 +20,40 @@ int	parse_philos(t_data *data)
 	while (--i >= 0)
 	{
 		data->philos[i].id = i;
-		printf("philo number : %d ", data->philos[i].id);
 		data->philos[i].ate = 0;
 		data->philos[i].left_fork = i;
-		printf(" with fork left number %d ", data->philos[i].left_fork);
 		data->philos[i].right_fork = (i + 1) % data->nb_philos;
-		printf("and right fork number %d\n", data->philos[i].right_fork);
+		data->philos[i].time_eat = 0; // what's this purpose ?
 		data->philos[i].data = data;
 	}
 	return (true);
 }
 
-int	parse_mutex(t_data *data)
+/* ************************************************************************** */
+/* initialize all our data in our data structure.                             */
+/* ************************************************************************** */
+
+int	init_mutex(t_data *data)
 {
 	int	i;
 
 	i = data->nb_philos;
 	while (--i >= 0)
 	{
-		if (pthread_mutex_init(&data->fork_mutex[i], NULL) != 0)
+		if (pthread_mutex_init(&(data->fork_mutex[i]), NULL) != 0)
 			return (1);
 	}
+		if (pthread_mutex_init(&(data->action_mutex), NULL) != 0)
+			return (1);
+		if (pthread_mutex_init(&(data->eat_mutex), NULL) != 0)
+			return (1);
 	return (true);
 }
+
+/* ************************************************************************** */
+/* the parse_mutex function that initializes all the mutexes in our structs   */
+/* so we can use them after in our philo_actions functions                    */
+/* ************************************************************************** */
 
 int	parse_all(t_data *data, char **av)
 {
@@ -51,6 +62,7 @@ int	parse_all(t_data *data, char **av)
 	data->time_to_eat = ft_atoi(av[3]);
 	data->time_to_sleep = ft_atoi(av[4]);
 	data->dead = 0;
+	data->all_ate = 0;
 	if (data->nb_philos < 2 || data->time_to_die < 0 || data->time_to_eat < 0
 		|| data->time_to_sleep < 0)
 		return (1);
@@ -62,9 +74,15 @@ int	parse_all(t_data *data, char **av)
 	}
 	else
 		data->nb_must_eat = -1;
-	if (!parse_mutex(data))
+	if (!init_mutex(data))
 		return (1);
-	if (!parse_philos(data))
+	if (!init_philos(data))
 		return (1);
 	return (true);
 }
+
+/* ************************************************************************** */
+/* parse all fills our structs with our program parameters at first           */
+/* with our 2 structures, data and philos which contains all the informations */
+/* Basically we just initialize mutexes and structures                        */
+/* ************************************************************************** */
