@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 13:56:01 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/14 15:28:41 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/14 15:58:19 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int	init_mutex(t_data *data)
 	i = data->nb_philos;
 	while (--i >= 0)
 	{
-		if (pthread_mutex_init(&(data->fork_mutex[i]), NULL) != 0)
+		if (pthread_mutex_init(&data->fork_mutex[i], NULL) != 0)
 			return (1);
 	}
-		if (pthread_mutex_init(&(data->action_mutex), NULL) != 0)
+		if (pthread_mutex_init(&data->action_mutex, NULL) != 0)
 			return (1);
-		if (pthread_mutex_init(&(data->eat_mutex), NULL) != 0)
+		if (pthread_mutex_init(&data->eat_mutex, NULL) != 0)
 			return (1);
 	return (true);
 }
