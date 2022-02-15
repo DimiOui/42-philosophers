@@ -6,7 +6,7 @@
 #    By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/10 12:23:41 by dimioui           #+#    #+#              #
-#    Updated: 2022/02/15 15:37:06 by dimioui          ###   ########.fr        #
+#    Updated: 2022/02/15 15:46:50 by dimioui          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,6 @@ define removing
 	@printf '$(shell tput setaf 59)Removing$(shell tput sgr0) %s\n' $1
 	@$(RM) $1 > /dev/null
 endef
-
-define norminette
-
-endef
-
 
 SRCS		=	$(addprefix srcs/, \
 							main.c \
