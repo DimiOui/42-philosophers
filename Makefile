@@ -6,7 +6,7 @@
 #    By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/10 12:23:41 by dimioui           #+#    #+#              #
-#    Updated: 2022/02/15 15:46:50 by dimioui          ###   ########.fr        #
+#    Updated: 2022/02/15 15:50:14 by dimioui          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ RM			= rm -f
 
 CC			= cc
 
-CFLAGS		= -Wall -Wextra -Werror -c -Iincludes -g
+CFLAGS		= -c -Wall -Wextra -Werror -Iincludes -g
 
 INCLUDE		= -pthread
 
@@ -44,10 +44,10 @@ INCLUDE		= -pthread
 			$(call compiling,$<,$(<:.c=.o),0)
 
 ${NAME}:	$(OBJS)
-			@printf '$(shell tput setaf 29)Finished √ %s\n$(shell tput sgr0)' $1
+			@printf '$(shell tput setaf 29)Finished Compiling √ %s\n$(shell tput sgr0)' $1
 			@printf '$(shell tput setaf 69)Linking objs...\n$(shell tput sgr0)'
 			$(CC) $(INCLUDE) $(FLAGS) -o $(NAME) $(OBJS)
-			@printf '$(shell tput setaf 29)Finished √ %s\n$(shell tput sgr0)' $1
+			@printf '$(shell tput setaf 29)Finished linking √ %s\n$(shell tput sgr0)' $1
 			@make -s norminette
 
 norminette:
