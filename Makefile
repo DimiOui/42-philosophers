@@ -6,9 +6,24 @@
 #    By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/10 12:23:41 by dimioui           #+#    #+#              #
-#    Updated: 2022/02/14 15:27:04 by dimioui          ###   ########.fr        #
+#    Updated: 2022/02/15 14:38:53 by dimioui          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+define compiling
+	@printf 'Compiling %s\n' $1
+	@$(CC) $(CFLAGS) -c $1 -o $2
+endef
+
+define removing
+	@printf ' %s\n' $1
+	@$(RM) $1 > /dev/null
+endef
+
+define norminette
+
+endef
+
 
 SRCS		=	$(addprefix srcs/, \
 							main.c \
@@ -18,28 +33,37 @@ SRCS		=	$(addprefix srcs/, \
 							philo_actions.c \
 				)
 
-OBJS		= ${SRCS:.c=.o}
+OBJS		= $(SRCS:.c=.o)
 
 NAME		= philo
 
-RM			= @rm -f
+RM			= rm -f
 
-CC			= @cc
+CC			= cc
 
-CFLAGS		= -Wall -Wextra -Werror -Iincludes -c -g
+CFLAGS		= -Wall -Wextra -Werror -c -Iincludes -g
 
 INCLUDE		= -pthread
 
-.c.o:
-			${CC} ${CFLAGS} $< -o ${<:.c=.o}
+%.o : %.c
+			$(call compiling,$<,$(<:.c=.o),0)
 
 ${NAME}:	$(OBJS)
 			$(CC) $(INCLUDE) $(FLAGS) -o $(NAME) $(OBJS)
+			@printf 'Finished %s\n' $1
+			@make -s norminette
+
+norminette:
+			@if norminette $(SRCS) >/dev/null; then\
+				echo "$(shell tput bold)$(shell tput setaf 6)Norminette check : [OK]$(shell tput sgr0)";\
+			else\
+				echo "$(shell tput bold)$(shell tput setaf 1)Norminette check : [KO]$(shell tput sgr0)";\
+			fi
 
 all:		$(NAME)
 
 clean:
-			$(RM) $(OBJS) $(BONUS_OBJS)
+			$(call removing,$(OBJS))
 
 fclean:		clean
 			$(RM) $(NAME)

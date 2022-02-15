@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 10:25:14 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/15 11:28:26 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/15 14:51:00 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	dead_check(t_data *data, t_philos *philo)
 			break ;
 		i = 0;
 		while ((data->nb_must_eat != -1) && (i < data->nb_philos)
-				&& (philo[i].ate >= data->nb_must_eat))
+			&& (philo[i].ate == data->nb_must_eat)) // >= or == ???
 			i++;
 		if (i == data->nb_philos)
 			data->all_ate = 1;
