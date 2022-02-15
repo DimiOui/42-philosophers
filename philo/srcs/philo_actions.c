@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 10:25:14 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/15 14:53:42 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/15 23:07:37 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	dead_check(t_data *data, t_philos *philo)
 				data->dead = 1;
 			}
 			pthread_mutex_unlock(&data->eat_mutex);
-			usleep(200);
+			usleep(1000);
 		}
 		if (data->dead)
 			break ;
@@ -104,7 +104,7 @@ int	init_routine(t_data *data)
 	data->time_birth = timestamp();
 	while (i < data->nb_philos)
 	{
-		if (pthread_create(&philo[i].philo_thread, NULL, routine, &philo[i]))
+		if (pthread_create(&philo[i].philo_thread, NULL, &routine, &philo[i]))
 			return (false);
 		philo[i].time_eat = timestamp();
 		i++;
