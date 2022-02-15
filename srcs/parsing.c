@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 13:56:01 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/14 15:58:19 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/15 10:55:04 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	init_philos(t_data *data)
 		data->philos[i].ate = 0;
 		data->philos[i].left_fork = i;
 		data->philos[i].right_fork = (i + 1) % data->nb_philos;
-		data->philos[i].time_eat = 0; // what's this purpose ?
+		data->philos[i].time_eat = 0;
 		data->philos[i].data = data;
 	}
 	return (true);
@@ -41,12 +41,12 @@ int	init_mutex(t_data *data)
 	while (--i >= 0)
 	{
 		if (pthread_mutex_init(&data->fork_mutex[i], NULL) != 0)
-			return (1);
+			return (false);
 	}
-		if (pthread_mutex_init(&data->action_mutex, NULL) != 0)
-			return (1);
-		if (pthread_mutex_init(&data->eat_mutex, NULL) != 0)
-			return (1);
+	if (pthread_mutex_init(&data->action_mutex, NULL) != 0)
+		return (false);
+	if (pthread_mutex_init(&data->eat_mutex, NULL) != 0)
+		return (false);
 	return (true);
 }
 
@@ -64,20 +64,20 @@ int	parse_all(t_data *data, char **av)
 	data->dead = 0;
 	data->all_ate = 0;
 	if (data->nb_philos < 2 || data->time_to_die < 0 || data->time_to_eat < 0
-		|| data->time_to_sleep < 0)
-		return (1);
+		|| data->time_to_sleep < 0 || data->nb_philos > MAX_PHILO)
+		return (false);
 	if (av[5])
 	{
 		data->nb_must_eat = ft_atoi(av[5]);
 		if (data->nb_must_eat <= 0)
-			return (1);
+			return (false);
 	}
 	else
 		data->nb_must_eat = -1;
 	if (!init_mutex(data))
-		return (1);
+		return (false);
 	if (!init_philos(data))
-		return (1);
+		return (false);
 	return (true);
 }
 

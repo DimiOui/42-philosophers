@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 14:07:01 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/14 15:58:47 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/15 10:47:39 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	s_sleep(int time, t_data *data)
 	while (!(data->dead))
 	{
 		if (m_time(i, timestamp()) >= time)
-			break;
+			break ;
 		usleep(150);
 	}
 }

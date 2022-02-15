@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 12:07:12 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/14 15:54:57 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/15 10:48:45 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define MAX_PHILO 200
 
-struct s_data;
+struct	s_data;
 typedef struct s_philos {
 	int					id;
 	int					ate;
