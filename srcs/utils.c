@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 14:07:01 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/15 11:34:55 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/15 15:52:12 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	philo_does(t_data *data, int id, char *str)
 	pthread_mutex_lock(&data->action_mutex);
 	if (!(data->dead))
 	{
-		printf("%lli\t ", timestamp() - data->time_birth);
-		printf("%i ", id + 1);
+		printf("(%lli)\t ", timestamp() - data->time_birth);
+		printf("philo %i ", id + 1);
 		printf("%s\n", str);
 	}
 	pthread_mutex_unlock(&data->action_mutex);

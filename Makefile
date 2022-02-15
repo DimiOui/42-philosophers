@@ -6,7 +6,7 @@
 #    By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/10 12:23:41 by dimioui           #+#    #+#              #
-#    Updated: 2022/02/15 15:50:14 by dimioui          ###   ########.fr        #
+#    Updated: 2022/02/15 15:56:30 by dimioui          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,20 +30,22 @@ SRCS		=	$(addprefix srcs/, \
 
 OBJS		= $(SRCS:.c=.o)
 
+INC			= includes/philo.h
+
 NAME		= philo
 
 RM			= rm -f
 
 CC			= cc
 
-CFLAGS		= -c -Wall -Wextra -Werror -Iincludes -g
+CFLAGS		= -c -Wall -Wextra -Werror -Iincludes -g -pthread
 
 INCLUDE		= -pthread
 
 %.o : %.c
 			$(call compiling,$<,$(<:.c=.o),0)
 
-${NAME}:	$(OBJS)
+${NAME}:	$(OBJS) $(INC)
 			@printf '$(shell tput setaf 29)Finished Compiling √ %s\n$(shell tput sgr0)' $1
 			@printf '$(shell tput setaf 69)Linking objs...\n$(shell tput sgr0)'
 			$(CC) $(INCLUDE) $(FLAGS) -o $(NAME) $(OBJS)
@@ -51,7 +53,7 @@ ${NAME}:	$(OBJS)
 			@make -s norminette
 
 norminette:
-			@if norminette $(SRCS) >/dev/null; then\
+			@if norminette $(SRCS) $(INC) >/dev/null; then\
 				echo "$(shell tput setaf 35)Norminette check √$(shell tput sgr0)";\
 			else\
 				echo "$(shell tput setaf 1)Norminette check ✕$(shell tput sgr0)";\
