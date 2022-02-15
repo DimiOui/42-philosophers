@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 10:25:14 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/15 11:06:19 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/15 11:23:05 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	*routine(void *void_philo)
 	philo = (struct s_philos *)void_philo;
 	data = philo->data;
 	if (philo->id % 2)
-		usleep(100);
+		usleep(20000);
 	while (!(data->dead))
 	{
 		philo_eats(philo);
@@ -81,7 +81,7 @@ void	dead_check(t_data *data, t_philos *philo)
 				data->dead = 1;
 			}
 			pthread_mutex_unlock(&data->eat_mutex);
-			usleep(50);
+			usleep(200);
 		}
 		if (data->dead)
 			break ;
@@ -105,7 +105,7 @@ int	init_routine(t_data *data)
 	while (i < data->nb_philos)
 	{
 		if (pthread_create(&philo[i].philo_thread, NULL, routine, &philo[i]))
-			return (1);
+			return (false);
 		philo[i].time_eat = timestamp();
 		i++;
 	}
