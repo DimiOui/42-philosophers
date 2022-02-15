@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 14:07:01 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/15 10:47:39 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/15 11:13:53 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_atoi(const char *str)
 	return (result * sign);
 }
 
-int	timestamp(void)
+long long	timestamp(void)
 {
 	struct timeval	t;
 
@@ -47,21 +47,21 @@ int	timestamp(void)
 	return ((t.tv_sec * 1000) + t.tv_usec / 1000);
 }
 
-int	m_time(int past, int pres)
+long long	m_time(long long past, long long pres)
 {
 	return (pres - past);
 }
 
-void	s_sleep(int time, t_data *data)
+void	s_sleep(long long time, t_data *data)
 {
-	int	i;
+	long long	i;
 
 	i = timestamp();
 	while (!(data->dead))
 	{
 		if (m_time(i, timestamp()) >= time)
 			break ;
-		usleep(150);
+		usleep(50);
 	}
 }
 
@@ -70,7 +70,7 @@ void	philo_does(t_data *data, int id, char *str)
 	pthread_mutex_lock(&data->action_mutex);
 	if (!(data->dead))
 	{
-		printf("%i\t ", timestamp() - data->time_birth);
+		printf("%lli\t ", timestamp() - data->time_birth);
 		printf("%i ", id + 1);
 		printf("%s\n", str);
 	}
