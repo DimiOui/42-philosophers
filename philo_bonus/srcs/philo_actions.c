@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 10:25:14 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/15 14:53:42 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/16 15:28:19 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,23 @@ void	philo_eats(t_philos *philo)
 	t_data	*data;
 
 	data = philo->data;
-	pthread_mutex_lock(&data->fork_mutex[philo->left_fork]);
-	philo_does(data, philo->id, "has taken a fork");
-	pthread_mutex_lock(&data->fork_mutex[philo->right_fork]);
-	philo_does(data, philo->id, "has taken a fork");
-	pthread_mutex_lock(&data->eat_mutex);
-	philo_does(data, philo->id, "is eating");
-	philo->time_eat = timestamp();
-	pthread_mutex_unlock(&data->eat_mutex);
-	s_sleep(data->time_to_eat, data);
-	(philo->ate)++;
-	pthread_mutex_unlock(&data->fork_mutex[philo->left_fork]);
-	pthread_mutex_unlock(&data->fork_mutex[philo->right_fork]);
+	if (data->nb_philos == 1)
+		philo_one(philo);
+	else
+	{
+		sem_wait(data->forks);
+		philo_does(data, philo->id, "has taken a fork");
+		sem_wait(data->forks);
+		philo_does(data, philo->id, "has taken a fork");
+		sem_wait(data->eat);
+		philo_does(data, philo->id, "is eating");
+		philo->time_eat = timestamp();
+		sem_post(data->eat);
+		s_sleep(data->time_to_eat, data);
+		(philo->ate)++;
+		sem_post(data->forks);
+		sem_post(data->forks);
+	}
 }
 
 void	*routine(void *void_philo)
@@ -59,10 +64,12 @@ void	destroy_philos(t_data *data, t_philos *philo)
 	i = -1;
 	while (++i < data->nb_philos)
 		pthread_join(philo[i].philo_thread, NULL);
-	i = -1;
-	while (++i < data->nb_philos)
-		pthread_mutex_destroy(&data->fork_mutex[i]);
-	pthread_mutex_destroy(&data->action_mutex);
+	sem_close(data->forks);
+	sem_close(data->action);
+	sem_close(data->eat);
+	sem_unlink("/philo_forks");
+	sem_unlink("/philo_action");
+	sem_unlink("/philo_eat");
 }
 
 void	dead_check(t_data *data, t_philos *philo)
@@ -74,14 +81,14 @@ void	dead_check(t_data *data, t_philos *philo)
 		i = -1;
 		while (++i < data->nb_philos && !(data->dead))
 		{
-			pthread_mutex_lock(&data->eat_mutex);
+			sem_wait(data->eat);
 			if (m_time(philo[i].time_eat, timestamp()) > data->time_to_die)
 			{
 				philo_does(data, i, "died");
 				data->dead = 1;
 			}
-			pthread_mutex_unlock(&data->eat_mutex);
-			usleep(200);
+			sem_post(data->eat);
+			usleep(1000);
 		}
 		if (data->dead)
 			break ;
@@ -104,7 +111,7 @@ int	init_routine(t_data *data)
 	data->time_birth = timestamp();
 	while (i < data->nb_philos)
 	{
-		if (pthread_create(&philo[i].philo_thread, NULL, routine, &philo[i]))
+		if (pthread_create(&philo[i].philo_thread, NULL, &routine, &philo[i]))
 			return (false);
 		philo[i].time_eat = timestamp();
 		i++;

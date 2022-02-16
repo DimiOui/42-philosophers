@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 13:56:01 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/15 15:31:22 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/16 15:38:15 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	init_philos(t_data *data)
 	{
 		data->philos[i].id = i;
 		data->philos[i].ate = 0;
-		data->philos[i].left_fork = i;
-		data->philos[i].right_fork = (i + 1) % data->nb_philos;
 		data->philos[i].time_eat = 0;
 		data->philos[i].data = data;
 	}
@@ -33,20 +31,16 @@ int	init_philos(t_data *data)
 /* initialize all our data in our data structure.                             */
 /* ************************************************************************** */
 
-int	init_mutex(t_data *data)
+int	init_semaphores(t_data *data)
 {
-	int	i;
-
-	i = data->nb_philos;
-	while (--i >= 0)
-	{
-		if (pthread_mutex_init(&data->fork_mutex[i], NULL) != 0)
-			return (false);
-	}
-	if (pthread_mutex_init(&data->action_mutex, NULL) != 0)
-		return (false);
-	if (pthread_mutex_init(&data->eat_mutex, NULL) != 0)
-		return (false);
+	sem_unlink("/philo_forks");
+	sem_unlink("/philo_action");
+	sem_unlink("/philo_eat");
+	data->forks = sem_open("/philo_forks", O_CREAT, S_IRWXU, data->nb_philos);
+	data->action = sem_open("/philo_action", O_CREAT, S_IRWXU, 1);
+	data->eat = sem_open("/philo_eat", O_CREAT, S_IRWXU, 1);
+	//if (data->forks <= 0 || data->action <= 0 || data->eat <= 0)
+	//	return (false);
 	return (true);
 }
 
@@ -63,7 +57,7 @@ int	parse_all(t_data *data, char **av)
 	data->time_to_sleep = ft_atoi(av[4]);
 	data->dead = 0;
 	data->all_ate = 0;
-	if (data->nb_philos < 2 || data->time_to_die < 0 || data->time_to_eat < 0
+	if (data->nb_philos < 1 || data->time_to_die < 1 || data->time_to_eat < 0
 		|| data->time_to_sleep < 0 || data->nb_philos > MAX_PHILO)
 		return (false);
 	if (av[5])
@@ -74,7 +68,7 @@ int	parse_all(t_data *data, char **av)
 	}
 	else
 		data->nb_must_eat = -1;
-	if (!init_mutex(data))
+	if (!init_semaphores(data))
 		return (false);
 	if (!init_philos(data))
 		return (false);
@@ -86,3 +80,15 @@ int	parse_all(t_data *data, char **av)
 /* with our 2 structures, data and philos which contains all the informations */
 /* Basically we just initialize mutexes and structures                        */
 /* ************************************************************************** */
+
+// last util because of norm
+
+void	philo_one(t_philos *philo)
+{
+	t_data	*data;
+
+	data = philo->data;
+	philo_does(data, philo->id, "has taken a fork");
+	s_sleep(data->time_to_die, data);
+	dead_check(data, data->philos);
+}

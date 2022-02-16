@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 14:07:01 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/15 15:52:12 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/16 15:32:13 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,21 @@ int	ft_atoi(const char *str)
 {
 	int	i;
 	int	result;
-	int	sign;
 
 	i = 0;
 	result = 0;
-	sign = 1;
 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		{
-			if (str[i] == '-')
-				sign *= (-1);
-		}
-		i++;
-	}
+	if (str[i] < '0' || str[i] > '9')
+		return (-1);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		result = (result * 10) + (str[i] - '0');
 		i++;
 	}
-	return (result * sign);
+	if (str[i])
+		return (-1);
+	return (result);
 }
 
 long long	timestamp(void)
@@ -67,13 +61,13 @@ void	s_sleep(long long time, t_data *data)
 
 void	philo_does(t_data *data, int id, char *str)
 {
-	pthread_mutex_lock(&data->action_mutex);
+	sem_wait(data->action);
 	if (!(data->dead))
 	{
 		printf("(%lli)\t ", timestamp() - data->time_birth);
 		printf("philo %i ", id + 1);
 		printf("%s\n", str);
 	}
-	pthread_mutex_unlock(&data->action_mutex);
+	sem_post(data->action);
 	return ;
 }

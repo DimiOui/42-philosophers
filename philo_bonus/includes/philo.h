@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 12:07:12 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/15 15:57:16 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/16 15:35:49 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <pthread.h>
 # include <stdlib.h>
 # include <stdint.h>
+# include <semaphore.h>
+# include <fcntl.h>
+//# include <sys/stat.h>
 
 # define MAX_PHILO 200
 
@@ -42,9 +45,9 @@ typedef struct s_data {
 	int					dead;
 	int					all_ate;
 	long long			time_birth;
-	pthread_mutex_t		fork_mutex[MAX_PHILO];
-	pthread_mutex_t		eat_mutex;
-	pthread_mutex_t		action_mutex;
+	sem_t				*forks;
+	sem_t				*action;
+	sem_t				*eat;
 	t_philos			philos[MAX_PHILO];
 }	t_data;
 
@@ -60,6 +63,7 @@ void			*routine(void *void_philo);
 void			philo_eats(t_philos *philo);
 void			philo_does(t_data *data, int id, char *str);
 void			s_sleep(long long time, t_data *data);
+void			philo_one(t_philos *philo);
 long long		m_time(long long past, long long pres);
 long long		timestamp(void);
 
