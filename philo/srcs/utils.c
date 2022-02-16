@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 14:07:01 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/16 12:47:44 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/16 14:43:26 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ int	ft_atoi(const char *str)
 {
 	int	i;
 	int	result;
-	int	sign;
 
 	i = 0;
 	result = 0;
-	sign = 1;
 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
 	if (str[i] < '0' || str[i] > '9')
@@ -32,7 +30,7 @@ int	ft_atoi(const char *str)
 	}
 	if (str[i])
 		return (-1);
-	return (result * sign);
+	return (result);
 }
 
 long long	timestamp(void)
