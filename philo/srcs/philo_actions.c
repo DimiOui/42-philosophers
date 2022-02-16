@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 10:25:14 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/16 12:18:09 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/16 12:36:48 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,9 @@ void	philo_eats(t_philos *philo)
 
 	data = philo->data;
 	pthread_mutex_lock(&data->fork_mutex[philo->left_fork]);
-	pthread_mutex_lock(&(data->d_mutex));
 	philo_does(data, philo->id, "has taken a fork");
-	pthread_mutex_unlock(&(data->d_mutex));
 	pthread_mutex_lock(&data->fork_mutex[philo->right_fork]);
-	pthread_mutex_lock(&(data->d_mutex));
 	philo_does(data, philo->id, "has taken a fork");
-	pthread_mutex_unlock(&(data->d_mutex));
 	pthread_mutex_lock(&data->eat_mutex);
 	philo_does(data, philo->id, "is eating");
 	philo->time_eat = timestamp();

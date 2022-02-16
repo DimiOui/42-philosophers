@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 14:07:01 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/16 11:19:29 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/16 12:36:51 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,27 @@ long long	m_time(long long past, long long pres)
 	return (pres - past);
 }
 
+//void	s_sleep(long long time, t_data *data)
+//{
+//	long long	i;
+
+//	i = timestamp();
+//	while (!(data->dead))
+//	{
+//		if (m_time(i, timestamp()) >= time)
+//			break ;
+//		usleep(50);
+//	}
+//}
+
 void	s_sleep(long long time, t_data *data)
 {
 	long long	i;
 
+	(void) data;
 	i = timestamp();
-	while (!(data->dead))
-	{
-		if (m_time(i, timestamp()) >= time)
-			break ;
-		usleep(50);
-	}
+    while ((timestamp() - i) <time)
+        usleep(time / 10);
 }
 
 void	philo_does(t_data *data, int id, char *str)
