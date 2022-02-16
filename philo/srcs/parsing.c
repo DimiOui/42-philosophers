@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpaccagn <dpaccagn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 13:56:01 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/16 13:59:42 by dpaccagn         ###   ########.fr       */
+/*   Updated: 2022/02/16 15:04:56 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,3 +86,15 @@ int	parse_all(t_data *data, char **av)
 /* with our 2 structures, data and philos which contains all the informations */
 /* Basically we just initialize mutexes and structures                        */
 /* ************************************************************************** */
+
+// last util because of norm
+
+void	philo_one(t_philos *philo)
+{
+	t_data	*data;
+
+	data = philo->data;
+	philo_does(data, philo->id, "has taken a fork");
+	s_sleep(data->time_to_die, data);
+	dead_check(data, data->philos);
+}

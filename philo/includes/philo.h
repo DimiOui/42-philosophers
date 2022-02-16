@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 12:07:12 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/16 12:47:58 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/16 14:55:47 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void			*routine(void *void_philo);
 void			philo_eats(t_philos *philo);
 void			philo_does(t_data *data, int id, char *str);
 void			s_sleep(long long time, t_data *data);
+void			philo_one(t_philos *philo);
 long long		m_time(long long past, long long pres);
 long long		timestamp(void);
 
