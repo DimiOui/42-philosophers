@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+d ./* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 13:56:01 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/16 15:38:15 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/16 16:02:51 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,10 @@ int	init_philos(t_data *data)
 
 int	init_semaphores(t_data *data)
 {
-	sem_unlink("/philo_forks");
-	sem_unlink("/philo_action");
-	sem_unlink("/philo_eat");
-	data->forks = sem_open("/philo_forks", O_CREAT, S_IRWXU, data->nb_philos);
-	data->action = sem_open("/philo_action", O_CREAT, S_IRWXU, 1);
-	data->eat = sem_open("/philo_eat", O_CREAT, S_IRWXU, 1);
-	//if (data->forks <= 0 || data->action <= 0 || data->eat <= 0)
+	data->forks = sem_open("philo_forks", O_CREAT, S_IRWXU, data->nb_philos);
+	data->action = sem_open("philo_action", O_CREAT, S_IRWXU, 1);
+	data->eat = sem_open("philo_eat", O_CREAT, S_IRWXU, 1);
+	//if (data->forks == SEM_FAILED || data->action == SEM_FAILED || data->eat == SEM_FAILED)
 	//	return (false);
 	return (true);
 }
