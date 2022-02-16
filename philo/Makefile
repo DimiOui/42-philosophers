@@ -6,7 +6,7 @@
 #    By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/10 12:23:41 by dimioui           #+#    #+#              #
-#    Updated: 2022/02/16 15:02:15 by dimioui          ###   ########.fr        #
+#    Updated: 2022/02/16 15:08:40 by dimioui          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ CC			= cc
 
 CFLAGS		= -c -Wall -Wextra -Werror -Iincludes
 
-INCLUDE		= -pthread -g -fsanitize=thread
+INCLUDE		= -pthread -g #-fsanitize=thread
 
 %.o : %.c
 			$(call compiling,$<,$(<:.c=.o),0)
