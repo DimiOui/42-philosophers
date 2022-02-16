@@ -6,7 +6,7 @@
 #    By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/10 12:23:41 by dimioui           #+#    #+#              #
-#    Updated: 2022/02/16 11:28:30 by dimioui          ###   ########.fr        #
+#    Updated: 2022/02/16 11:30:52 by dimioui          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,9 @@ RM			= rm -f
 
 CC			= cc
 
-CFLAGS		= -c -Wall -Wextra -Werror -Iincludes -g
+CFLAGS		= -c -Wall -Wextra -Werror -Iincludes
 
-INCLUDE		= -pthread
+INCLUDE		= -pthread -g -fsanitize=thread
 
 %.o : %.c
 			$(call compiling,$<,$(<:.c=.o),0)
