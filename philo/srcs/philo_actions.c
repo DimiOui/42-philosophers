@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dpaccagn <dpaccagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 10:25:14 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/16 12:54:47 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/16 14:07:18 by dpaccagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ void	philo_eats(t_philos *philo)
 	t_data	*data;
 
 	data = philo->data;
+	if (data->nb_philos == 1)
+	{
+		ft_philo_one
+	}
 	pthread_mutex_lock(&data->fork_mutex[philo->left_fork]);
 	philo_does(data, philo->id, "has taken a fork");
 	pthread_mutex_lock(&data->fork_mutex[philo->right_fork]);
