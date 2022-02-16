@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 13:56:01 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/16 11:11:53 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/16 12:59:07 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	parse_all(t_data *data, char **av)
 	data->time_to_sleep = ft_atoi(av[4]);
 	data->dead = 0;
 	data->all_ate = 0;
-	if (data->nb_philos < 1 || data->time_to_die < 0 || data->time_to_eat < 0
+	if (data->nb_philos < 2 || data->time_to_die < 1 || data->time_to_eat < 0
 		|| data->time_to_sleep < 0 || data->nb_philos > MAX_PHILO)
 		return (false);
 	if (av[5])
