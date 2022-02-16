@@ -6,7 +6,7 @@
 #    By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/10 12:23:41 by dimioui           #+#    #+#              #
-#    Updated: 2022/02/15 15:56:30 by dimioui          ###   ########.fr        #
+#    Updated: 2022/02/16 10:02:03 by dimioui          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ RM			= rm -f
 
 CC			= cc
 
-CFLAGS		= -c -Wall -Wextra -Werror -Iincludes -g -pthread
+CFLAGS		= -c -Wall -Wextra -Werror -Iincludes -g
 
 INCLUDE		= -pthread
 
