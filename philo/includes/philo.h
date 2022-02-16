@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 12:07:12 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/16 12:12:37 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/16 12:16:26 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_data {
 	int					dead;
 	int					all_ate;
 	long long			time_birth;
+	pthread_mutex_t		d_mutex;
 	pthread_mutex_t		fork_mutex[MAX_PHILO];
 	pthread_mutex_t		eat_mutex;
 	pthread_mutex_t		action_mutex;
