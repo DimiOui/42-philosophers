@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 13:46:18 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/16 11:14:19 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/16 18:20:04 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 int	main(int ac, char **av)
 {
 	t_data	data;
-	int		parse_ret;
 
 	if (ac != 5 && ac != 6)
-		error (1);
-	parse_ret = parse_all(&data, av);
-	if (!(parse_ret))
-		error (2);
+		return (error(1), false);
+	if (!(parse_all(&data, av)))
+		return (error(2), false);
 	if (!(init_routine(&data)))
-		error (3);
-	return (0);
+		return (error(3), false);
+	return (true);
 }

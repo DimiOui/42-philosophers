@@ -6,7 +6,7 @@
 #    By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/10 12:23:41 by dimioui           #+#    #+#              #
-#    Updated: 2022/02/16 15:39:41 by dimioui          ###   ########.fr        #
+#    Updated: 2022/02/16 18:19:14 by dimioui          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ OBJS		= $(SRCS:.c=.o)
 
 INC			= includes/philo.h
 
-NAME		= philo
+NAME		= philo_bonus
 
 RM			= rm -f
 

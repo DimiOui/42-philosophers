@@ -6,7 +6,7 @@
 /*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 13:47:55 by dimioui           #+#    #+#             */
-/*   Updated: 2022/02/15 11:21:27 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/02/16 18:19:55 by dimioui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ void	error(int error)
 		printf("Error while parsing.\n");
 	else if (error == 3)
 		printf("Error while creating threads.\n");
-	exit (1);
+	return ;
 }
