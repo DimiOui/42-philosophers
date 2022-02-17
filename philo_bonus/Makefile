@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+         #
+#    By: dpaccagn <dpaccagn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/10 12:23:41 by dimioui           #+#    #+#              #
-#    Updated: 2022/02/16 18:19:14 by dimioui          ###   ########.fr        #
+#    Updated: 2022/02/17 15:28:32 by dpaccagn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ CC			= cc
 
 CFLAGS		= -Wall -Wextra -Werror -Iincludes
 
-INCLUDE		= -pthread -g -fsanitize=thread
+INCLUDE		= -pthread -g #-fsanitize=thread
 
 %.o : %.c
 			$(call compiling,$<,$(<:.c=.o),0)
