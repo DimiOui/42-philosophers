@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dpaccagn <dpaccagn@student.42.fr>          +#+  +:+       +#+         #
+#    By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/10 12:23:41 by dimioui           #+#    #+#              #
-#    Updated: 2022/02/17 15:28:32 by dpaccagn         ###   ########.fr        #
+#    Updated: 2022/04/04 15:21:53 by dimioui          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ INCLUDE		= -pthread -g #-fsanitize=thread
 ${NAME}:	$(OBJS) $(INC)
 			@printf '$(shell tput setaf 29)Finished Compiling √ %s\n$(shell tput sgr0)' $1
 			@printf '$(shell tput setaf 69)Linking objs...\n$(shell tput sgr0)'
-			$(CC) $(INCLUDE) $(FLAGS) -o $(NAME) $(OBJS)
+			$(CC) $(INCLUDE) -o $(NAME) $(OBJS)
 			@printf '$(shell tput setaf 29)Finished linking √ %s\n$(shell tput sgr0)' $1
 			@make -s norminette
 
