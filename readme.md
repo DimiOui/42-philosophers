@@ -1,65 +1,129 @@
-args of said program :
+# Dining Philosophers Problem
+This project presents a solution to the Dining Philosophers problem using multi-threading. The Dining Philosophers problem is a classic synchronization problem in computer science that demonstrates challenges related to resource allocation and deadlock avoidance.
 
--number_of_philosophers
-
--time_to_die
-
--time_to_eat
-
--time_to_sleep
-
--(number_of_times_each_philosophers_must_eat)
+<div id="header" align="center">
+  <img src="https://4.bp.blogspot.com/-QjBnBxGbH38/UuyeUvi4_kI/AAAAAAAAR9s/sSJHU3WvwNQ/s1600/Dining-Philosophers-Problem.jpg"/>
+</div>
 
 
-Each philosopher is represented as a *thread*.
+## Problem Description
 
-Each philosopher is assigned a *fork* (if 1 philosopher, 1 fork, if > 1 then each philo has a fork to the left and right).
+The Dining Philosophers problem involves a group of philosophers sitting around a circular table with bowls of rice and chopsticks. Each philosopher spends their time thinking and eating, but they require two chopsticks to eat. The chopsticks are shared resources between adjacent philosophers.
 
-To prevent duplication of *forks* we must use *mutex*.
+The challenge lies in developing a solution that ensures the philosophers can access the chopsticks without encountering deadlocks (where multiple philosophers hold one chopstick each, preventing any of them from eating) or starvation (where a philosopher is indefinitely denied access to the chopsticks).
 
+## Implementation
 
-Rules :
+The solution to the Dining Philosophers problem is implemented using the following code snippets:
 
-Each philosopher is either **eating**, **thinking** or **sleeping**.
+### Initializing Philosophers and Resources
 
-Each philosopher takes **2 forks** to eat (no 2 neighboors can eat simultaneously).
+The `init_philos` function initializes the philosophers' data structure:
 
-Once a philosopher is done **eating**, he **sleeps**. (forks are back on the table).
+```c
+int init_philos(t_data *data) {
+    // Initialize each philosopher with their respective properties
+    // such as ID, number of times eaten, left and right forks, etc.
+    // ...
+    return true;
+}
+```
 
-Once awakened, he starts to **think**.
+The `init_mutex` function initializes the mutexes required for resource synchronization:
 
+```c
+int init_mutex(t_data *data) {
+    // Initialize the mutexes for forks and other shared resources
+    // using the pthread_mutex_init function
+    // ...
+    return true;
+}
+```
+The `parse_all` function parses the program arguments and initializes the data structure:
 
---------------------------------------------------------------------------------------------------------------------------
+```c
+int parse_all(t_data *data, char **av) {
+    // Parse the program arguments and fill the data structure with the provided values
+    // Initialize the mutexes and philosophers' data
+    // ...
+    return true;
+}
+```
 
-Each philosopher needs to eat (**can't die of hunger**)
+### Philosopher Actions
+The `philo_eats` function represents a philosopher's eating behavior:
 
-Each state change of a philosopher is formatted as a timestamp (in ms).
+```c
+void philo_eats(t_philos *philo) {
+    // Acquire the necessary forks (mutexes) for eating
+    // Log that the philosopher has taken the forks
+    // ...
+    // Perform eating actions and track the number of times eaten
+    // ...
+    // Release the acquired forks (mutexes) when done eating
+    // ...
+}
+```
+The `routine` function is the main routine executed by each philosopher thread:
 
-10 ms max between the death of a philosopher and the timestamp message print.
+```c
+void *routine(void *void_philo) {
+    // Perform the sequence of actions for a philosopher
+    // including eating, sleeping, and thinking
+    // ...
+    return NULL;
+}
+```
 
+### Synchronization and Termination
+The `dead_check` function checks for a philosopher's death due to starvation:
 
---------------------------------------------------------------------------------------------------------------------------
+```c
+void dead_check(t_data *data, t_philos *philo) {
+    // Continuously monitor each philosopher's last meal time
+    // and check if it exceeds the time_to_die threshold
+    // ...
+}
+```
+The `init_routine` function initializes the philosopher threads and checks for termination conditions:
 
-Tips :
+```c
+int init_routine(t_data *data) {
+    // Create philosopher threads and start their routines
+    // Monitor termination conditions such as all philosophers eating enough or a philosopher's death
+    // ...
+    return true;
+}
+```
 
+### Utility Functions
+Several utility functions are used to handle time, sleeping, and logging:
+
+- `ft_atoi`: A function to convert a string to an integer.
+- `timestamp`: A function to get the current timestamp in milliseconds.
+- `m_time`: A function to calculate the time difference between two timestamps.
+- `s_sleep`: A function to sleep for a specified amount of time.
+
+### Usage
+To compile and run the Dining Philosophers program, follow these steps:
+
+1. Clone the repository or download the source code.
+2. Compile the program using the appropriate compiler command. For example:
+```bash
+gcc -pthread main.c -o dining_philosophers
+Run the program with the desired arguments. For example:
+./dining_philosophers 5 200 100 100
+```
+This command runs the program with 5 philosophers, a time-to-die of 200 milliseconds, a time-to-eat of 100 milliseconds, and a time-to-sleep of 100 milliseconds.
+
+### Conclusion
+The Dining Philosophers problem is a classic synchronization challenge that tests your understanding of multi-threading and resource management. This project provides an implementation of the problem using mutexes and threads in C.
+
+By carefully coordinating the acquisition and release of resources, the implemented solution ensures that the philosophers can eat without deadlocks or starvation.
+<br/>
+
+### Resources
 https://www.youtube.com/watch?v=FY9livorrJI&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&index=3
 https://en.wikipedia.org/wiki/Dining_philosophers_problem
 https://cdn.intra.42.fr/pdf/pdf/41344/fr.subject.pdf
 
---------------------------------------------------------------------------------------------------------------------------
-
-#include <pthread.h>
-
-add -pthread flag to GCC
-
-eg ```gcc -pthread -Wall -Werror```
-
-pthread_create(reference to the thread(&thread), attribute (NULL), routine function pointer (&routine), argument (NULL))
-
-pthread_join(thread, pointer to the result of that thread(NULL)) is the function that wait for the thread to finish it's work (is basically a "wait" function like with processes)
-
-Threads are a segment of a process, it means many threads can run in a process.
-
-All threads share the same set of variables and addresses.
-
-**Race conditions** will happen without mutex (pthread_mutex_init/pthread_mutex_lock/pthread_mutex_unlock/pthread_mutex_destroy). In a multithreaded context, without mutex, all threads can start and wait at a random time. Mutex protects a thread against other threads executing at the same time.
